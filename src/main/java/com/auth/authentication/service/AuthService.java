@@ -9,5 +9,5 @@ public interface AuthService {
 
     CustomMessage register(AccountRequest accountRequest);
 
-    CustomMessage logOut();
+    CustomMessage logOut(String userName);
 }

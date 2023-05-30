@@ -20,4 +20,9 @@ public class AuthController {
     public CustomMessage attemptLogin(@RequestBody AccountRequest accountRequest){
         return authService.login(accountRequest);
     }
+
+    @GetMapping("/logout")
+    public CustomMessage attemptLogout(String userName){
+        return authService.logOut(userName);
+    }
 }

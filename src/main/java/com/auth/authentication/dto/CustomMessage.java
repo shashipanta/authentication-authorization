@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CustomMessage {
     private String code;
     private String message;
+    private String token;
 }
