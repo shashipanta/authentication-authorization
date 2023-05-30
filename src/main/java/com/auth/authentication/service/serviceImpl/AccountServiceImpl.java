@@ -1,6 +1,5 @@
 package com.auth.authentication.service.serviceImpl;
 
-import com.auth.authentication.config.CustomPasswordEncoder;
 import com.auth.authentication.dto.request.AccountRequest;
 import com.auth.authentication.dto.response.AccountResponse;
 import com.auth.authentication.entity.Account;
@@ -9,14 +8,9 @@ import com.auth.authentication.repo.AccountRepo;
 import com.auth.authentication.repo.RoleRepo;
 import com.auth.authentication.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -29,14 +23,15 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepo accountRepo;
     private final RoleRepo roleRepo;
 
-    private final CustomPasswordEncoder customPasswordEncoder;
+//    private final CustomPasswordEncoder customPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest)  {
         Account account = AccountRequest.toAccount(accountRequest);
 
         // encrypt password
-        account.setPassword(customPasswordEncoder.encrypt(account.getPassword()));
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
 
         // add default role to any user
         Role roleUser = roleRepo.findRoleByName("ROLE_USER");

@@ -7,20 +7,21 @@ import com.auth.authentication.entity.Account;
 import com.auth.authentication.repo.AccountRepo;
 import com.auth.authentication.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final CustomPasswordEncoder customPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final AccountRepo accountRepo;
 
     @Override
     public CustomMessage login(AccountRequest accountRequest) {
         Account savedAccount = accountRepo.findAccountByUserName(accountRequest.getName());
 
-        Boolean isCredentialsValid = customPasswordEncoder.isMatching(savedAccount.getPassword(), accountRequest.getPassword());
+        Boolean isCredentialsValid = passwordEncoder.matches(accountRequest.getPassword(), savedAccount.getPassword());
 
         if(isCredentialsValid){
             return new CustomMessage("SUCCESS_CODE", "Login successfully");

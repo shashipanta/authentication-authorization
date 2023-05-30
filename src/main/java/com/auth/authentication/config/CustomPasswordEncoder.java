@@ -14,10 +14,10 @@ import java.util.Base64;
 public class CustomPasswordEncoder {
 
     /*
-            Encryption using AES alogrithm
+            Encryption using AES algorithm
      */
 
-    private static String algorithm = "AES/CBC/PKCS5Padding";
+    private static String algorithm = "AES/CBC/NoPadding";
 
     private static SecretKey secretKey;
     private static IvParameterSpec iv;
