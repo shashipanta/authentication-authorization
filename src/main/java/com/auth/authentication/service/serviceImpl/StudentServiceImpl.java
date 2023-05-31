@@ -39,4 +39,12 @@ public class StudentServiceImpl implements StudentService {
                     .map(student -> StudentResponse.toStudentResponse(student, ""))
                     .collect(Collectors.toList());
     }
+
+    @Override
+    public StudentResponse getSingleStudent(Short id) {
+
+        Student foundStudent = studentRepo.findById(id).orElseThrow();
+
+        return StudentResponse.toStudentResponse(foundStudent, "sent with ...");
+    }
 }

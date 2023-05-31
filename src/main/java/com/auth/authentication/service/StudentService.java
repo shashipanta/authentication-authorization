@@ -10,4 +10,6 @@ public interface StudentService {
     StudentResponse createStudent(StudentRequest studentRequest);
 
     List<StudentResponse> getAllStudents();
+
+    StudentResponse getSingleStudent(Short id);
 }
