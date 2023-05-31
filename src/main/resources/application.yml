@@ -1,20 +1,3 @@
 spring:
-  datasource:
-    url: jdbc:mysql://172.17.0.2:3306/auth_tutorial_db
-    password: root
-    username: root
-  jpa:
-    database-platform: org.springframework.orm.jpa.vendor.Database.MYSQL
-    generate-ddl: true
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        globally_quoted_identifiers: true
-        dialect: org.hibernate.dialect.MySQLDialect
-    #        format_sql: true
-    open-in-view: off
-
-jwt:
-  secret-key: 8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@
+  profiles:
+    active: test

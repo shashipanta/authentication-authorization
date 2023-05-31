@@ -1,13 +1,17 @@
 package com.auth.authentication.utils;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 
+@Component
 public class FileSaveUtils {
 
-    private static String ROOT_DIR = System.getProperty("home") + File.separator + "File_upload";
+    private static String ROOT_DIR = System.getProperty("user.home")
+            + File.separator
+            + "Desktop/File_upload";
 
     public String saveMultipartFile(MultipartFile multipartFile){
 

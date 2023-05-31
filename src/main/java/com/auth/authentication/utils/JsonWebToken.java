@@ -2,6 +2,7 @@ package com.auth.authentication.utils;
 
 import com.auth.authentication.entity.Account;
 import com.auth.authentication.entity.Role;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;

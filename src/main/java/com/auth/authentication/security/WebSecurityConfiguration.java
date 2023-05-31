@@ -33,7 +33,9 @@ public class WebSecurityConfiguration {
 
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                        .requestMatchers("/api/v1/auth/login")
+//                        .requestMatchers("/api/v1/auth/login")
+//                        .permitAll()
+                        .requestMatchers("/api/v1/file-upload")
                         .permitAll()
                         .anyRequest()
                         .hasAnyRole("ADMIN", "USER")

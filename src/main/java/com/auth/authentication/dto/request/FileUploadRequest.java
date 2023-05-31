@@ -16,6 +16,8 @@ public class FileUploadRequest {
     private LocalDateTime uploadedAt;
     private LocalDateTime updatedAt;
 
+    private String someMessage;
+
     public static File toFile(FileUploadRequest fileUploadRequest){
         File file = new File();
         file.setUploadedAt(LocalDateTime.now());
