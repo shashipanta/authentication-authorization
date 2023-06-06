@@ -4,10 +4,7 @@ import com.auth.authentication.dto.CustomMessage;
 import com.auth.authentication.dto.request.AccountRequest;
 import com.auth.authentication.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +13,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public CustomMessage attemptLogin(@RequestBody AccountRequest accountRequest){
         return authService.login(accountRequest);
     }

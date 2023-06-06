@@ -6,6 +6,7 @@ import com.auth.authentication.entity.Role;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,11 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.Instant;
 
+import java.util.List;
 import java.util.Set;
 
 public class JsonWebToken {
 
-    private final static Integer EXPIRATION_TIME = 5 * 60 * 60 * 1000;
+    private final static Integer EXPIRATION_TIME = 50 * 60 * 60 * 1000;
 
 
     public static String generateAccessToken(Account account, String secretKey) {
@@ -39,17 +41,18 @@ public class JsonWebToken {
 
 
         String jwt = JWT.create()
+                .withSubject(account.getUserName())
                 .withClaim("userName", account.getUserName())
                 .withClaim("roles", role.getName())
                 .withClaim("iat", issuedAt)
-                .withClaim("eat", expiresAt)
+                .withClaim("exp", expiresAt)
                 .sign(algorithm);
 
 
         return jwt;
     }
 
-    static String verifyToken(String token, String secretKey) {
+    static DecodedJWT verifyToken(String token, String secretKey) {
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
@@ -67,10 +70,17 @@ public class JsonWebToken {
         String body = decodedJWT.getPayload();
         String header = decodedJWT.getHeader();
 
-        return body;
+        return decodedJWT;
     }
 
-    public static String getUserName(String jwtBody){
+    public static List<String> getClaims(DecodedJWT decodedJWT){
+        String subject = decodedJWT.getSubject();
+        String username = decodedJWT.getClaim("userName").asString();
+        String roles = decodedJWT.getClaim("roles").asString();
+        return List.of(subject,username,roles);
+    }
+
+    public static String getUserName(DecodedJWT jwtBody){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication instanceof UsernamePasswordAuthenticationToken authenticationToken){
             return String.valueOf(authenticationToken.getPrincipal());

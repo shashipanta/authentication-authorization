@@ -35,7 +35,7 @@ public class StudentController {
     }
 
     @GetMapping("/audio")
-    public String getAudioMessage(@RequestBody String message){
+    public String getAudioMessage(@RequestBody String message) {
 
         textToAudioConverter.toAudio(message);
 
@@ -43,9 +43,17 @@ public class StudentController {
     }
 
     @GetMapping("/audio/{id}")
-    public String getAudioUsingBackend(@PathVariable Short id){
+    public String getAudioUsingBackend(@PathVariable Short id) {
         textToAudioConverter.toCustomAudio(studentService.getSingleStudent(id));
         return "Audio played ...";
+    }
+
+    @GetMapping("/audio/{id}/save")
+    public String saveGeneratedAudio(@PathVariable Short id) {
+        StudentResponse singleStudent = studentService.getSingleStudent(id);
+
+        textToAudioConverter.saveAudioToDisk(singleStudent);
+        return "Audio saved .. probably";
     }
 
 
