@@ -38,8 +38,6 @@ public class JsonWebToken {
                 .get();
 
 
-
-
         String jwt = JWT.create()
                 .withSubject(account.getUserName())
                 .withClaim("userName", account.getUserName())

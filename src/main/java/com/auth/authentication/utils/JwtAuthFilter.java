@@ -1,7 +1,5 @@
 package com.auth.authentication.utils;
 
-import com.auth.authentication.security.AccountAuthenticationProvider;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,7 +34,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader(AUTH_HEADER);
 
-        if(authHeader != null && authHeader.startsWith("Bearer")){
+        if (authHeader != null && authHeader.startsWith("Bearer")) {
             // extract token and add it to security context
             String token = authHeader.substring(7);
 
@@ -47,17 +44,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             List<String> claims = JsonWebToken.getClaims(decodedJWT);
 
             String username = claims.get(1);
-            String roles = claims.get(claims.size()-1);
+            String roles = claims.get(claims.size() - 1);
 
             // add user details to security context holder
             SecurityContextHolder
                     .getContext()
-                    .setAuthentication(new UsernamePasswordAuthenticationToken(username, username, List.of(new SimpleGrantedAuthority(roles))));
+                    .setAuthentication(new UsernamePasswordAuthenticationToken(username, null, List.of(new SimpleGrantedAuthority(roles))));
         }
-
-//        Object securityObject = SecurityContextHolder.getContext()
-//                .getAuthentication()
-//                .getAuthorities();
 
         // apply filter
         filterChain.doFilter(request, response);
