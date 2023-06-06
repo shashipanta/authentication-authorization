@@ -6,7 +6,6 @@ import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
-import net.bramp.ffmpeg.builder.FFmpegOutputBuilder;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ import java.io.IOException;
 public class ImageToVideoConverter {
 
     private final FFmpeg fFmpeg;
-    private final FFprobe fFprobe;
+//    private final FFprobe fFprobe;
 
     private static String ROOT_DIR = System.getProperty("user.home")
             + File.separator
@@ -63,10 +62,10 @@ public class ImageToVideoConverter {
 //                .addOutput("output.mp4")   // Filename for the destination
                 .setFormat("mp4");      // Format is inferred from filename, or can be set
 
-        FFmpegExecutor executor = new FFmpegExecutor(fFmpeg, fFprobe);
+//        FFmpegExecutor executor = new FFmpegExecutor(fFmpeg, fFprobe);
 
         // Run a one-pass encode
-        executor.createJob(builder).run();
+//        executor.createJob(builder).run();
 
 
     }

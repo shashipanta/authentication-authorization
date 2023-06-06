@@ -16,5 +16,7 @@ spring:
     #        format_sql: true
     open-in-view: off
 
+
 jwt:
   secret-key: 8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@
+
