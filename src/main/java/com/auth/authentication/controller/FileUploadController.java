@@ -21,11 +21,7 @@ public class FileUploadController {
     @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
     public ResponseEntity<FileUploadMessage> uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute FileUploadRequest fileUploadRequest){
         // string into json
-
-
         fileUploadRequest.setMultipartFile(file);
-        System.out.println("File uploaded : " + file.getContentType());
-        System.out.println("uploaded json : " + fileUploadRequest);
         fileService.uploadFile(fileUploadRequest);
         return ResponseEntity.ok(new FileUploadMessage("File uploaded successfully"));
     }
